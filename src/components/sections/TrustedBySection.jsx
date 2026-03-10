@@ -2,7 +2,7 @@ import React from 'react';
 
 export default function TrustedBySection() {
     return (
-        <section className="py-10 border-y border-white/5 bg-zinc-950/50 backdrop-blur-md relative z-10">
+        <section className="py-10 border-y border-white/5 bg-[#050505] relative z-10">
             <div className="max-w-7xl mx-auto px-6">
                 <p className="text-center text-xs font-semibold text-zinc-500 uppercase tracking-widest mb-6">Confiança estabelecida com empresas de alto nível</p>
                 <div className="flex flex-wrap justify-center items-center gap-8 md:gap-16 opacity-50 grayscale hover:grayscale-0 transition-all duration-500">

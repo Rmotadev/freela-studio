@@ -13,13 +13,12 @@ export default function HeroSection() {
 
     return (
         <section className="relative pt-40 pb-20 md:pt-48 md:pb-32 px-6 overflow-hidden">
-            {/* Abstract Background Elements */}
-            <div className="absolute inset-0 bg-grid z-0"></div>
-            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[600px] bg-blue-500/15 blur-[120px] rounded-full pointer-events-none z-0 animate-float-delayed"></div>
+            {/* Abstract Background Elements Lightened - GPU Optimized (No Blur Filter) */}
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[600px] bg-[radial-gradient(ellipse_at_top,rgba(37,99,235,0.15)_0%,transparent_70%)] rounded-full pointer-events-none z-0"></div>
 
             <div className="max-w-4xl mx-auto text-center relative z-10">
                 <FadeInSection>
-                    <div className="mx-auto w-fit inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-blue-500/30 bg-blue-500/10 backdrop-blur-sm mb-8">
+                    <div className="mx-auto w-fit inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-blue-500/30 bg-[#0a1228] mb-8">
                         <span className="flex h-2 w-2 relative">
                             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
                             <span className="relative inline-flex rounded-full h-2 w-2 bg-blue-500"></span>

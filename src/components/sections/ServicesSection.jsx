@@ -22,7 +22,7 @@ export default function ServicesSection() {
                         const IconRender = Icons[service.icon];
                         return (
                             <FadeInSection key={index} delay={index * 100}>
-                                <div className="h-full bg-zinc-900/50 backdrop-blur-sm border border-white/5 hover:border-blue-500/30 p-8 md:p-10 rounded-2xl transition-all duration-500 hover:bg-zinc-900 group hover:-translate-y-2 hover:shadow-[0_10px_40px_rgba(37,99,235,0.1)]">
+                                <div className="h-full bg-zinc-900 border border-white/5 hover:border-blue-500/30 p-8 md:p-10 rounded-2xl transition-all duration-500 hover:bg-zinc-900 group hover:-translate-y-2 hover:shadow-[0_10px_40px_rgba(37,99,235,0.1)]">
                                     <div className="flex flex-col md:flex-row gap-6">
                                         <div className="shrink-0 w-14 h-14 bg-zinc-950 border border-white/10 rounded-xl flex items-center justify-center text-blue-400 group-hover:bg-blue-600 group-hover:text-white group-hover:border-transparent transition-all duration-300 shadow-lg">
                                             {IconRender && <IconRender />}

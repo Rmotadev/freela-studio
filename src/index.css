@@ -1,6 +1,6 @@
 @import "tailwindcss";
 
-@theme {
+@theme inline {
   --color-green-neon: #00ff87;
   --color-cyan-neon: #60efff;
 }
@@ -13,10 +13,6 @@
   .animate-float-delayed {
     animation: float 6s ease-in-out 3s infinite;
   }
-
-  .animate-pan {
-    animation: pan 60s linear infinite;
-  }
 }
 
 @keyframes float {
@@ -28,15 +24,5 @@
 
   50% {
     transform: translateY(-15px) rotate(1.5deg);
-  }
-}
-
-@keyframes pan {
-  0% {
-    background-position: 0% 0%;
-  }
-
-  100% {
-    background-position: 100% 100%;
   }
 }

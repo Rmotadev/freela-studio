@@ -1,40 +1,21 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React from 'react';
+import { motion } from 'framer-motion';
 
 const FadeInSection = ({ children, delay = 0, className = "" }) => {
-    const [isVisible, setVisible] = useState(false);
-    const domRef = useRef();
-
-    useEffect(() => {
-        const observer = new IntersectionObserver(
-            (entries) => {
-                entries.forEach((entry) => {
-                    if (entry.isIntersecting) {
-                        setVisible(true);
-                        observer.unobserve(entry.target);
-                    }
-                });
-            },
-            { threshold: 0.1, rootMargin: "0px 0px -50px 0px" }
-        );
-
-        if (domRef.current) {
-            observer.observe(domRef.current);
-        }
-
-        return () => {
-            if (domRef.current) observer.unobserve(domRef.current);
-        };
-    }, []);
-
     return (
-        <div
-            ref={domRef}
-            className={`transition-all duration-1000 ease-out ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-                } ${className}`}
-            style={{ transitionDelay: `${delay}ms` }}
+        <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{
+                duration: 0.8,
+                delay: delay / 1000,
+                ease: [0.25, 0.25, 0, 1]
+            }}
+            className={className}
         >
             {children}
-        </div>
+        </motion.div>
     );
 };
 

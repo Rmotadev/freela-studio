@@ -29,7 +29,7 @@ export default function PortfolioSection() {
                                         loading="lazy"
                                     />
                                     <div className="absolute top-4 left-4 z-20">
-                                        <span className="bg-zinc-950/80 backdrop-blur-md text-xs font-bold px-3 py-1.5 rounded text-zinc-300 border border-white/10 uppercase tracking-widest">
+                                        <span className="bg-[#050505] text-xs font-bold px-3 py-1.5 rounded text-zinc-300 border border-white/10 uppercase tracking-widest">
                                             {item.tag}
                                         </span>
                                     </div>

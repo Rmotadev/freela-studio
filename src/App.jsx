@@ -1,23 +1,81 @@
-import React from 'react';
+import React, { Suspense, lazy, useEffect, useState } from 'react';
 import { HelmetProvider, Helmet } from 'react-helmet-async';
+import { AnimatePresence } from 'framer-motion';
+import Lenis from 'lenis';
 import Header from './components/layout/Header';
 import Footer from './components/layout/Footer';
 import FloatingWhatsApp from './components/ui/FloatingWhatsApp';
+import Preloader from './components/ui/Preloader';
 
+// Critical components loaded directly (above the fold)
 import HeroSection from './components/sections/HeroSection';
 import TrustedBySection from './components/sections/TrustedBySection';
-import ExpertiseSection from './components/sections/ExpertiseSection';
-import ServicesSection from './components/sections/ServicesSection';
-import PortfolioSection from './components/sections/PortfolioSection';
-import ProcessSection from './components/sections/ProcessSection';
-import TestimonialsSection from './components/sections/TestimonialsSection';
-import FAQSection from './components/sections/FAQSection';
-import CTASection from './components/sections/CTASection';
+
+// Lazy loaded components (below the fold)
+const ExpertiseSection = lazy(() => import('./components/sections/ExpertiseSection'));
+const ServicesSection = lazy(() => import('./components/sections/ServicesSection'));
+const PortfolioSection = lazy(() => import('./components/sections/PortfolioSection'));
+const ProcessSection = lazy(() => import('./components/sections/ProcessSection'));
+const TestimonialsSection = lazy(() => import('./components/sections/TestimonialsSection'));
+const FAQSection = lazy(() => import('./components/sections/FAQSection'));
+const CTASection = lazy(() => import('./components/sections/CTASection'));
+
+// Simple loading fallback
+const SectionLoader = () => <div className="py-24 flex justify-center items-center"><div className="w-8 h-8 rounded-full border-t-2 border-b-2 border-blue-500 animate-spin"></div></div>;
 
 export default function App() {
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    // Simulador de Carregamento para a Experiência Premium (Preloader)
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 2800); // 2.8 segundos de loader inicial glorioso
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  useEffect(() => {
+    if (isLoading) return; // Não iniciar rolagem antes de liberar o site
+
+    // Timeout brutal para garantir que a HeroSection pintou todas as fontes antes do Lenis calcular a altura
+    const initTimer = setTimeout(() => {
+      const lenis = new Lenis({
+        duration: 2.2, // Aumentado para desacelerar MUITO a transição
+        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        direction: 'vertical',
+        gestureDirection: 'vertical',
+        smooth: true,
+        smoothWheel: true,
+        wheelMultiplier: 0.6, // Amortece o salto que as rodinhas de mouses baratos dão
+        mouseMultiplier: 0.6,
+        smoothTouch: false,
+        touchMultiplier: 2,
+        infinite: false,
+      });
+
+      const raf = (time) => {
+        lenis.raf(time);
+        requestAnimationFrame(raf);
+      };
+
+      requestAnimationFrame(raf);
+
+      return () => {
+        lenis.destroy();
+      };
+    }, 100); // 100ms de folga após o preloader sair
+
+    return () => clearTimeout(initTimer);
+  }, [isLoading]);
+
   return (
     <HelmetProvider>
       <div className="min-h-screen bg-[#050505] text-zinc-300 antialiased font-body selection:bg-blue-500/30 selection:text-white">
+
+        <AnimatePresence mode="wait">
+          {isLoading && <Preloader key="preloader" />}
+        </AnimatePresence>
 
         {/* Gestão de Metas de SEO (Headless) */}
         <Helmet>
@@ -32,16 +90,9 @@ export default function App() {
         {/* Estilos Base Globais */}
         <style dangerouslySetInnerHTML={{
           __html: `
-          @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap');
           .font-sans { font-family: 'Plus Jakarta Sans', sans-serif; }
           .font-body { font-family: 'Inter', sans-serif; }
           html { scroll-behavior: smooth; }
-          .bg-grid {
-            background-size: 30px 30px;
-            background-image: linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-                              linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-            animation: pan 90s linear infinite;
-          }
         `}} />
 
         <Header />
@@ -49,13 +100,16 @@ export default function App() {
         <main>
           <HeroSection />
           <TrustedBySection />
-          <ExpertiseSection />
-          <ServicesSection />
-          <PortfolioSection />
-          <ProcessSection />
-          <TestimonialsSection />
-          <FAQSection />
-          <CTASection />
+
+          <Suspense fallback={<SectionLoader />}>
+            <ExpertiseSection />
+            <ServicesSection />
+            <PortfolioSection />
+            <ProcessSection />
+            <TestimonialsSection />
+            <FAQSection />
+            <CTASection />
+          </Suspense>
         </main>
 
         <Footer />
