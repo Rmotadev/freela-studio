@@ -6,14 +6,28 @@ export default function Header() {
     const scrollTo = (id) => {
         const el = document.getElementById(id);
         if (el) {
-            el.scrollIntoView({ behavior: "smooth", block: "start" });
+            const headerOffset = 80;
+            const elementPosition = el.getBoundingClientRect().top;
+            const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+            window.scrollTo({
+                top: offsetPosition,
+                behavior: "smooth"
+            });
         }
+    };
+
+    const scrollToTop = () => {
+        window.scrollTo({ top: 0, behavior: "smooth" });
     };
 
     return (
         <header className="fixed top-0 left-0 right-0 z-50 bg-[#050505]/95 border-b border-white/5 transition-all duration-300">
             <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-                <div className="font-sans font-bold text-2xl text-white tracking-tight flex items-center gap-2">
+                <div
+                    onClick={scrollToTop}
+                    className="font-sans font-bold text-2xl text-white tracking-tight flex items-center gap-2 cursor-pointer"
+                >
                     <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-600 to-indigo-600 flex items-center justify-center shadow-[0_0_15px_rgba(37,99,235,0.4)]">
                         <Icons.Code />
                     </div>
