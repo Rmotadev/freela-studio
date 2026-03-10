@@ -14,10 +14,10 @@ export default function CTASection() {
                         <Icons.Shield />
                     </div>
                     <h2 className="text-4xl md:text-6xl font-sans font-extrabold text-white mb-8">
-                        Pronto para elevar o padrão da sua marca?
+                        Pronto para dominar o seu mercado?
                     </h2>
                     <p className="text-xl text-zinc-400 mb-12 font-light max-w-2xl mx-auto">
-                        Projetos imersivos, de alto rendimento técnico e rigor visual aguardam o seu negócio. Agende uma call estratégica de 15 minutos, sem compromisso inicial.
+                        Devido à exclusividade e alto nível de entrega, atuamos com volume limitado de projetos. Agende agora uma Sessão Estratégica e garanta o posicionamento premium da sua marca antes da concorrência.
                     </p>
                     <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
                         <a

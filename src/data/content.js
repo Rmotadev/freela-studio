@@ -1,5 +1,5 @@
 export const WHATSAPP_NUMBER = "5551998221758";
-export const CTA_MESSAGE = "Olá! Gostaria de agendar uma consultoria rápida para falar sobre o meu projeto.";
+export const CTA_MESSAGE = "Olá! Vi o nível de entrega do Freela Studio e gostaria de agendar uma Sessão Estratégica para discutir o posicionamento do meu negócio.";
 
 export const generateWhatsAppLink = () => {
     return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(CTA_MESSAGE)}`;
